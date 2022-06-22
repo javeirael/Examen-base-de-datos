@@ -1,18 +1,18 @@
 <?php
-
 include('conec.php');
+//print_r($_POST);
 if(isset($_POST['enviar'])){
+    $nomFabricante=$_POST['nomFabricante'];
 
-    $nomFabricante = $_POST ['nomFabricante'];
-    $insertarfabricante = "INSERT INTO fabricante (nombre) VALUE ('$nomFabricante')";
-    $resultado = mysqli_query ($conexion,$insertarfabricante);
-
+    //$insertarFabricante="INSERT INTO fabricante (nombre) VALUE ('$nomFabricante')";
+    $insertarFabricante="CALL sp_insertarFabricante('$nomFabricante')";
+    $resultado=mysqli_query($conexion, $insertarFabricante);
     if(!$resultado){
-        echo '<script>alert("Los datos se insertaron")</script>';
+        echo'<script>alert("Los datos no se insertaron")</script>';
     }
     else{
-        echo '<script>alert("Los datos si se insertaron")</script>';
+        echo'<script>alert("Los datos se insertaron")</script>';
     }
 }
-header('Location: fabricantes.php');
+header('location: fabricantes.php');
 ?>
